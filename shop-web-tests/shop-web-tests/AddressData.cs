@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ShopWebTests
 {
-    class AddressData
+    public class AddressData
     {
         private string firstName;
         private string lastName;

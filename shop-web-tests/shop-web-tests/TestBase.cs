@@ -9,18 +9,15 @@ using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Support.UI;
 
-
 namespace ShopWebTests
 {
-    //[TestClass] - for NUnit need to write TestFixture
-    [TestFixture]
-    public class AdressCreationTests
+    public class TestBase
     {
-        private IWebDriver driver;
+        protected IWebDriver driver;
         private IAlert alert;
         private SelectElement select; // new SelectElement;
         private StringBuilder verificationErrors;
-        private string baseURL;
+        protected string baseURL;
         private bool acceptNextAlert = true;
 
         [SetUp]
@@ -29,7 +26,7 @@ namespace ShopWebTests
             driver = new ChromeDriver();
             baseURL = "http://automationpractice.com/";
             verificationErrors = new StringBuilder();
-            
+
         }
 
         [TearDown]
@@ -46,31 +43,12 @@ namespace ShopWebTests
             Assert.AreEqual("", verificationErrors.ToString());
         }
 
-        [Test] //- for NUnit need to write Test
-        public void AdressCreationTest()
-        {
-            //open home page
-            OpenHomePage();
-            //login
-            Login(new AccountData("tarby@mail.ru", "123123"));
-            GoToAddressList();
-            DeleteAddress();
-            //go to adress create
-            //CreateAdress(new AddressData("First Name", "Last Name", "Florida"));
-            AddressData address = new AddressData("First Name");
-            address.LastName = "Last Name";
-            address.DropdownState = "Florida";
-            //create new adress
-            //return to adress page
-        }
-
-        private void OpenHomePage()
+        protected void OpenHomePage()
         {
             driver.Navigate().GoToUrl(baseURL + "/index.php");
         }
 
-
-        private void Login(AccountData account)
+        protected void Login(AccountData account)
         {
             driver.FindElement(By.ClassName("login")).Click();
             driver.FindElement(By.Name("email")).SendKeys(account.Email);
@@ -80,7 +58,14 @@ namespace ShopWebTests
             Assert.AreEqual(getText, "MY ACCOUNT");
         }
 
-        private void CreateAdress(AddressData address)
+        protected void GoToAddressList()
+        {
+            driver.FindElement(By.ClassName("icon-building")).Click();
+            string getText = driver.FindElement(By.ClassName("page-subheading")).Text;
+
+        }
+
+        protected void CreateAdress(AddressData address)
         {
             driver.FindElement(By.XPath("//a[@title='Add an address']")).Click();
             driver.FindElement(By.Id("firstname")).Clear();
@@ -98,12 +83,12 @@ namespace ShopWebTests
 
             driver.FindElement(By.Id("alias")).Clear();
             driver.FindElement(By.Id("alias")).SendKeys("My Address");
-            
+
             driver.FindElement(By.Id("submitAddress")).Click();
 
         }
 
-        private void DeleteAddress()
+        protected void DeleteAddress()
         {
             driver.FindElement(By.XPath("//h3[text()='My Address']//..//..//a[@title='Delete']")).Click();
 
@@ -113,19 +98,8 @@ namespace ShopWebTests
             string alertText = alert.Text;
             Console.WriteLine("Alert text is " + alertText);
             // '.Accept()' is used to accept the alert '(click on the Ok button)'
-
+            Thread.Sleep(2000);
             alert.Accept();
         }
-
-        private void GoToAddressList()
-        {
-            driver.FindElement(By.ClassName("icon-building")).Click();
-            string getText = driver.FindElement(By.ClassName("page-subheading")).Text;
-
-        }
-
-        //Assert.AreEqual(getText, "MY ADDRESS");
-
     }
 }
-

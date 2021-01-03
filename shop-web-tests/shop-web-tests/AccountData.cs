@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ShopWebTests
 {
-    class AccountData
+    public class AccountData
     {
         private string email;
         private string password;
