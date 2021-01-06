@@ -1,9 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Threading;
 
-using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
@@ -11,61 +11,14 @@ using OpenQA.Selenium.Support.UI;
 
 namespace ShopWebTests
 {
-    public class TestBase
+    public class AddressHelper : HelperBase
     {
-        protected IWebDriver driver;
-        private IAlert alert;
-        private SelectElement select; // new SelectElement;
-        private StringBuilder verificationErrors;
-        protected string baseURL;
-        private bool acceptNextAlert = true;
-
-        [SetUp]
-        public void SetupTest()
+        public AddressHelper(IWebDriver driver) 
+            : base(driver)
         {
-            driver = new ChromeDriver();
-            baseURL = "http://automationpractice.com/";
-            verificationErrors = new StringBuilder();
-
         }
 
-        [TearDown]
-        public void TeardownTest()
-        {
-            try
-            {
-                driver.Quit();
-            }
-            catch (Exception)
-            {
-                //Ignore if unavle to close the browser
-            }
-            Assert.AreEqual("", verificationErrors.ToString());
-        }
-
-        protected void OpenHomePage()
-        {
-            driver.Navigate().GoToUrl(baseURL + "/index.php");
-        }
-
-        protected void Login(AccountData account)
-        {
-            driver.FindElement(By.ClassName("login")).Click();
-            driver.FindElement(By.Name("email")).SendKeys(account.Email);
-            driver.FindElement(By.Name("passwd")).SendKeys(account.Password);
-            driver.FindElement(By.XPath("//button[@id='SubmitLogin']")).Click();
-            string getText = driver.FindElement(By.XPath("//h1")).Text;
-            Assert.AreEqual(getText, "MY ACCOUNT");
-        }
-
-        protected void GoToAddressList()
-        {
-            driver.FindElement(By.ClassName("icon-building")).Click();
-            string getText = driver.FindElement(By.ClassName("page-subheading")).Text;
-
-        }
-
-        protected void CreateAdress(AddressData address)
+        public void CreateAdress(AddressData address)
         {
             driver.FindElement(By.XPath("//a[@title='Add an address']")).Click();
             driver.FindElement(By.Id("firstname")).Clear();
@@ -88,7 +41,7 @@ namespace ShopWebTests
 
         }
 
-        protected void DeleteAddress()
+        public void DeleteAddress()
         {
             driver.FindElement(By.XPath("//h3[text()='My Address']//..//..//a[@title='Delete']")).Click();
 
@@ -101,5 +54,6 @@ namespace ShopWebTests
             Thread.Sleep(2000);
             alert.Accept();
         }
+
     }
 }

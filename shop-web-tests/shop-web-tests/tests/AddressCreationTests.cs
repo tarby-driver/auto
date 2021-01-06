@@ -21,16 +21,16 @@ namespace ShopWebTests
         public void AdressCreationTest()
         {
             //open home page
-            OpenHomePage();
+            app.Navigator.OpenHomePage();
             //login
-            Login(new AccountData("tarby@mail.ru", "123123"));
-            GoToAddressList();
+            app.Auth.Login(new AccountData("tarby@mail.ru", "123123"));
+            app.Navigator.GoToAddressList();
             //create new adress
             //CreateAdress(new AddressData("First Name", "Last Name", "Florida"));
             AddressData address = new AddressData("First Name");
             address.LastName = "Last Name";
             address.DropdownState = "Florida";
-            CreateAdress(address);
+            app.AddressHelper.CreateAdress(address);
             //return to adress page
         }
 

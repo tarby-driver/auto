@@ -21,11 +21,11 @@ namespace ShopWebTests
         public void AddressRemovalTest()
         {
             //open home page
-            OpenHomePage();
+            app.Navigator.OpenHomePage();
             //login
-            Login(new AccountData("tarby@mail.ru", "123123"));
-            GoToAddressList();
-            DeleteAddress();
+            app.Auth.Login(new AccountData("tarby@mail.ru", "123123"));
+            app.Navigator.GoToAddressList();
+            app.AddressHelper.DeleteAddress();
         }
 
 
