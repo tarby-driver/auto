@@ -20,6 +20,10 @@ namespace ShopWebTests
         public void SetupTest()
         {
             app = new ApplicationManager();
+            //open home page
+            app.Navigator.OpenHomePage();
+            //login
+            app.Auth.Login(new AccountData("tarby@mail.ru", "123123"));
         }
 
         [TearDown]

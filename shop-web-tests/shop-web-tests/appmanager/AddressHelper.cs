@@ -20,6 +20,8 @@ namespace ShopWebTests
 
         public void CreateAdress(AddressData address)
         {
+            //app.Navigator.GoToAddressList();
+
             driver.FindElement(By.XPath("//a[@title='Add an address']")).Click();
             driver.FindElement(By.Id("firstname")).Clear();
             driver.FindElement(By.Id("firstname")).SendKeys(address.FirstName);
@@ -35,15 +37,15 @@ namespace ShopWebTests
             driver.FindElement(By.Id("phone")).SendKeys("12345678");
 
             driver.FindElement(By.Id("alias")).Clear();
-            driver.FindElement(By.Id("alias")).SendKeys("My Address");
+            driver.FindElement(By.Id("alias")).SendKeys(address.Alias);
 
             driver.FindElement(By.Id("submitAddress")).Click();
 
         }
 
-        public void DeleteAddress()
+        public void DeleteAddress(string MyAddress)
         {
-            driver.FindElement(By.XPath("//h3[text()='My Address']//..//..//a[@title='Delete']")).Click();
+            driver.FindElement(By.XPath("//h3[text()='" + MyAddress + "']//..//..//a[@title='Delete']")).Click();
 
             // Switch the control of 'driver' to the Alert from main Window
             IAlert alert = driver.SwitchTo().Alert();

@@ -28,8 +28,8 @@ namespace ShopWebTests
 
         public void GoToAddressList()
         {
-            driver.FindElement(By.ClassName("icon-building")).Click();
-            string getText = driver.FindElement(By.ClassName("page-subheading")).Text;
+            driver.FindElement(By.XPath("//a[@title='Addresses']/span")).Click();
+            string getText = driver.FindElement(By.XPath("//a[@title='Add an address']/span")).Text;
 
         }
 

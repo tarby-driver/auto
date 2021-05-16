@@ -27,6 +27,9 @@ namespace ShopWebTests
 
         public ApplicationManager()
         {
+            driver = new ChromeDriver();
+            baseURL = "http://automationpractice.com/"; //baseURL = "http://automationpractice.com/";
+
             loginHelper = new LoginHelper(driver);
             navigator = new NavigationHelper(driver, baseURL);
             addressHelper = new AddressHelper(driver);
@@ -42,7 +45,7 @@ namespace ShopWebTests
             {
                 //Ignore if unavle to close the browser
             }
-            Assert.AreEqual("", verificationErrors.ToString());
+            //Assert.AreEqual("", verificationErrors.ToString());
         }
 
         public LoginHelper Auth

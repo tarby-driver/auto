@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using NUnit.Framework;
 using OpenQA.Selenium;
@@ -25,6 +26,7 @@ namespace ShopWebTests
             driver.FindElement(By.Name("email")).SendKeys(account.Email);
             driver.FindElement(By.Name("passwd")).SendKeys(account.Password);
             driver.FindElement(By.XPath("//button[@id='SubmitLogin']")).Click();
+            Thread.Sleep(6000);
             string getText = driver.FindElement(By.XPath("//h1")).Text;
             Assert.AreEqual(getText, "MY ACCOUNT");
         }

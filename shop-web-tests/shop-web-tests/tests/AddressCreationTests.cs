@@ -20,21 +20,37 @@ namespace ShopWebTests
         [Test] //- for NUnit need to write Test
         public void AdressCreationTest()
         {
-            //open home page
-            app.Navigator.OpenHomePage();
-            //login
-            app.Auth.Login(new AccountData("tarby@mail.ru", "123123"));
             app.Navigator.GoToAddressList();
             //create new adress
             //CreateAdress(new AddressData("First Name", "Last Name", "Florida"));
             AddressData address = new AddressData("First Name");
             address.LastName = "Last Name";
             address.DropdownState = "Florida";
+            address.Company = "Company";
+            address.Alias = "My Address";
             app.AddressHelper.CreateAdress(address);
             //return to adress page
         }
 
        //Assert.AreEqual(getText, "MY ADDRESS");
+
+    
+
+        [Test] //- for NUnit need to write Test
+        public void EmptyCompanyAdressCreationTest()
+        {
+            app.Navigator.GoToAddressList();
+            //create new adress
+            //CreateAdress(new AddressData("First Name", "Last Name", "Florida"));
+            AddressData address = new AddressData("First Name");
+            address.LastName = "Last Name";
+            address.DropdownState = "Florida";
+            address.Alias = "Empty Company";
+            app.AddressHelper.CreateAdress(address);
+            //return to adress page
+        }
+
+        //Assert.AreEqual(getText, "MY ADDRESS");
 
     }
 }
